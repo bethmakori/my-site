@@ -13,7 +13,7 @@
  * One word from: "regatta" | "dune" | "orchard" | "noir"
  * (Or invent your own: copy a palette below, change the colors, name it.)
  */
-export const paletteChoice = "regatta";
+export const paletteChoice = "orchard";
 
 /** ── 2. Pick your font pairing ─────────────────────────────────────────
  * One word from: "editorial" | "geometric" | "classic"
@@ -27,7 +27,7 @@ export const fontChoice = "editorial";
  * Set to any CSS color (e.g. "#c2410c" or "rebeccapurple") to replace the
  * palette's accent with your own. Leave as null to use the palette's.
  */
-export const accentOverride: string | null = null;
+export const accentOverride: string | null = "#2f4a28";
 
 // ───────────────────────────────────────────────────────────────────────
 // The palettes. Each is a complete, coherent scheme with accessible
@@ -72,13 +72,13 @@ export const PALETTES: Record<string, Palette> = {
     accent: "#b4552d",
     accentInk: "#ffffff",
   },
-  /** Cool greens on off-white — botanical, calm. */
+  /** Cool greens on light green — botanical, calm. */
   orchard: {
-    paper: "#f6f8f4",
-    surface: "#ffffff",
+    paper: "#e8f2e4",
+    surface: "#f4f9f1",
     ink: "#20301f",
     muted: "#5d705b",
-    line: "#dde5d8",
+    line: "#c9d9c4",
     accent: "#3a6b35",
     accentInk: "#ffffff",
   },
