@@ -391,8 +391,8 @@ let profile = null;
 
 const challenge1Failures = results.filter((r) => !r.ok).length;
 
-// ── Later-lane stubs: these SHOULD fail until their lane ────────────────────
-console.log("\nLater-lane stubs (these should NOT pass yet — 501 is correct):");
+// ── Later-lane stubs: 501 until the lane is built; a real meta 200 is fine ─
+console.log("\nLater-lane stubs (501 until you build that lane; a real announcement is fine):");
 const stubs = [
   ["/api/reasoning/meta", "Lane 2"],
   ["/api/simulator/meta", "Lane 3"],
@@ -404,13 +404,29 @@ for (const [path, lane] of stubs) {
   const res = await get(path);
   if (res.status === 501) {
     console.log(`  \u2713 ${path} — 501, honestly unfinished (${lane}'s challenge fills it in)`);
-  } else if (res.ok) {
+    continue;
+  }
+  if (!res.ok) {
+    console.log(`  \u2713 ${path} — HTTP ${res.status}, not passing (fine until ${lane})`);
+    continue;
+  }
+  const body = json(res.text);
+  const announced =
+    body &&
+    typeof body.service === "string" &&
+    body.service.trim() !== "" &&
+    body.specVersion != null &&
+    typeof body.studentToken === "string" &&
+    body.studentToken.trim() !== "" &&
+    body.studentToken !== "SITE_TOKEN-env-var-not-set";
+  const tokenMismatch = announced && token && body.studentToken !== token;
+  if (announced && !tokenMismatch) {
+    console.log(`  \u2713 ${path} — announced (${lane} is live)`);
+  } else {
     stubProblems++;
     console.log(
-      `  \u2717 ${path} — returned HTTP ${res.status} but ${lane} isn't built; a stub that pretends to work will fail the real battery in confusing ways`
+      `  \u2717 ${path} — returned HTTP ${res.status} without a real { service, specVersion, studentToken }; a stub that pretends to work will fail the real battery in confusing ways`
     );
-  } else {
-    console.log(`  \u2713 ${path} — HTTP ${res.status}, not passing (fine until ${lane})`);
   }
 }
 
