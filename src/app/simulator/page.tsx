@@ -98,8 +98,10 @@ export default async function SimulatorPage() {
           alt="DAG of the investment game: initial wealth and the stake fraction (a decision) feed wealth after each year, which also depends on that year's coin flip."
           className="mt-3 w-full max-w-xl rounded-lg border border-line bg-white p-3"
         />
-        {/* TODO(yours): one sentence connecting the picture to the
-            simulation: which part is random, which part is your choice. */}
+        {/* The random part is the coin flip, the decision part is the stake fraction.
+        The DAG shows the relationship between the initial wealth, the stake fraction, and the wealth after each year.
+        The wealth after each year is the product of the previous year's wealth and the stake fraction, plus the result of the coin flip.
+        */}
       </section>
     </main>
   );
